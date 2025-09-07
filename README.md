@@ -2,16 +2,12 @@
 
 #🧾 Document Classification for Administrative Workflow Automation
 
-Automates the classification of incoming administrative documents — such as invoices, resumes, contracts, and support tickets — into predefined categories (e.g., Finance, HR, Legal, Support). This streamlines document routing, reduces manual sorting, and improves operational efficiency across departments.
-
----
+The goal of this project is to implement a NLP based system which provides classification based on different types of documents, such as invoices, resumes, contracts and support tickets, into different categories/departments such as Finance, HR, Legal, Support, Ops and Sales
 
 ## 📌 Project Goals
 
 - ✅ Build a robust NLP model to classify unstructured documents
 - ✅ Implement an end-to-end MLOps pipeline for training, deployment, and monitoring
-- ✅ Enable real-time classification via API and dashboard
-- ✅ Support both cloud and on-premise deployment strategies
 
 ---
 
@@ -42,7 +38,6 @@ Automates the classification of incoming administrative documents — such as in
 ### 🚀 Deployment
 - **API:** FastAPI endpoint for real-time classification
 - **Dashboard:** Streamlit interface for uploads and results
-- **Cloud:** Azure App Service with CI/CD via GitHub Actions
 - **On-Premise:** Dockerized deployment with Nginx reverse proxy
 
 ---
@@ -68,8 +63,7 @@ Automates the classification of incoming administrative documents — such as in
 | Layer        | Tools                                 |
 |--------------|----------------------------------------|
 | NLP          | Hugging Face Transformers, spaCy       |
-| MLOps        | MLflow, Docker, GitHub Actions         |
-| Deployment   | FastAPI, Streamlit, Azure App Service  |
+| MLOps        | MLflow, Docker, GitHub Actions         |  
 | Monitoring   | Prometheus, Grafana                    |
 | Data Formats | JSON, CSV, PDF (OCR via Tesseract)     |
 
