@@ -1,33 +1,31 @@
-from random import random
-import spacy
-import pandas as pd
+#---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+#This script generates a synthetic dataset of documents with various categories for testing purposes.
+#---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+import os
 from faker import Faker
+import random
+import pandas as pd
+
+os.makedirs('data', exist_ok=True)
 
 fake = Faker()
-catergories = ['Finance', 'HR', 'Legal', 'Support', 'Ops', 'Sales']
+categories = ['Finance', 'HR', 'Legal', 'Support', 'Operations', 'Sales']
+
+print("Generating synthetic document dataset...")
+print("Categories:", categories)
 
 def generate_document(category):
-    based_text = {
-        'Finance': f"Invoice total is ${fake.random_number(digits=4)}. Payment due by {fake.date_this_month()}",
+    templates = {
+        'Finance': f"Invoice total is ${fake.random_number(digits=4)} due by {fake.date_this_month()}",
         'HR': f"Employee {fake.name()} submitted leave request for {fake.date_this_year()}",
-        'Legal': f"Contract between {fake.company()} and {fake.company()} signed on {fake.date()}",
-        'Support': f"Customer reported issue with {fake.word()} via {random.choice(['email', 'chat', 'phone'])}",
+        'Legal': f"Contract signed between {fake.company()} and {fake.company()} on {fake.date()}",
+        'Support': f"Customer reported issue with {fake.word()} via {random.choice(['email', 'chat'])}",
         'Operations': f"Shipment from {fake.city()} delayed due to {fake.word()}",
         'Sales': f"Lead {fake.name()} interested in {fake.bs()} product"
     }
-    return based_text[category]
-data = []
-for _ in range(5000):
-    category = random.choice(catergories)
-    text = generate_document(category)
-    data.append({'category': category, 'text': text})
+    return templates[category]
 
-documents_df = pd.DataFrame(data)
+data = [{'category': random.choice(categories), 'text': generate_document(random.choice(categories))} for _ in range(5000)]
 
-print(documents_df.head())
-
-nlp = spacy.load("en_core_web_sm")
-
-def preprocess_text(text):
-    doc = nlp(text)
-    return "".join([token.lemma_ for token in doc if not token.is_stop and not token.is_punct])
+pd.DataFrame(data).to_csv('data/documents.csv', index=False)
+#---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
